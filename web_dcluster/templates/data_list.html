@@ -1,0 +1,40 @@
+{#                              {% for row in rows %}#}
+{#                                <tr>#}
+{#                                    <td>{{ forloop.counter }}</td>#}
+{#                                    <td>{{ row.nama }}</td>#}
+{#                                    <td>{{ row.alamat }}</td>#}
+{#                                    <td>{{ row.sekolah }}</td>#}
+{#                                    <td>{{ row.lintang }}</td>#}
+{#                                    <td>{{ row.bujur }}</td>#}
+{#                                    <td>#}
+{#                                    <button class="btn btn-warning" type="button" name="button">#}
+{#                                    <a href="{% url 'update' row.id %}" id = '{{row.id}}'><i class="fa fa-pencil"></i></a></button>#}
+{#                                    <button class="btn btn-danger" type="button">#}
+{#                                    <a href="{% url 'delete' row.id %}"><i class="fa fa-trash"></i></a></button>#}
+{#                                    </td>#}
+{##}
+{##}
+{#                                </tr>#}
+{#                              {% endfor %}#}
+
+
+<!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Confirmation</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure want to Delete this song ?</p>
+            </div>
+            <div class="modal-footer">
+              <a class="btn btn-primary" data-dismiss="modal">Cancel</a>
+              <a class="btn btn-danger" id="btn-delete" href="">Delete</a>
+            </div>
+          </div>
+        </div>
+    </div>

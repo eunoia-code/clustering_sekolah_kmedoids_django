@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>QCluster</title>
+    {% load static %}
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="/media/main.css" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="/media/ext/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/media/ext/fontawesome.min.css">
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDqciYWLPDwpBFiAegV5l2VL5ArR3uQjv0"></script>
+    <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBQ37-fQ8kxLQVffDOyIWgqXQrlid_mhYw"></script> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="/media/ext/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+      <!-- <div class="d-flex" id="wrapper"> -->
+
+        <!-- Sidebar -->
+        <!-- <div class="bg-light border-right" id="sidebar-wrapper"> -->
+        
+          <!-- <div class="sidebar-heading bg-primary"> <a href="{% url 'index2' %}"><strong>QCluster</strong></a> </div> -->
+          <!-- <div class="list-group list-group-flush"> -->
+            <!-- <a href="{% url 'index2' %}" class="list-group-item list-group-item-action bg-light ">Dashboard</a> -->
+            <!-- <a href="{% url 'data' %}" class="list-group-item list-group-item-action bg-light ">Data Siswa</a> -->
+<!-- {#            <a href="{% url 'cluster' %}" class="list-group-item list-group-item-action bg-light ">Clustering</a>#} -->
+            <!-- <a href="{% url 'index' %}" class="list-group-item list-group-item-action bg-light ">Visual Clustering</a> -->
+            <!-- <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Status</a> -->
+            <!-- </div> -->
+          <!-- </div> -->
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <!-- <div id="page-content-wrapper">
+
+          
+          <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <ul class="navbar-nav ml-auto">
+    
+    <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'logout' %}">log out <span class="sr-only">(current)</span></a>
+                </li>
+  </ul>
+</nav> -->
+
+        
+        <!-- </div>
+      
+          
+
+  </div> -->
+
+
+
+
+  <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <div class="app-header header-shadow bg-happy-green header-text-light">
+            <div class="app-header__logo">
+                <div class="logo-src"></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>    <div class="app-header__content">
+                <div class="app-header-left">
+                    <div class="search-wrapper">
+                        <div class="input-holder">
+                            <input type="text" class="search-input" placeholder="Type to search">
+                            <button class="search-icon"><span></span></button>
+                        </div>
+                        <button class="close"></button>
+                    </div>
+                            </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="/media/assets/images/avatars/1.jpg" alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                            <button type="button" tabindex="0" class="dropdown-item">User Account</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Settings</button>
+                                            <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                                            <button type="button" tabindex="0" class="dropdown-item">Actions</button>
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content-left  ml-3 header-user-info">
+                                    <div class="widget-heading">
+                                        Dian Nirmala
+                                    </div>
+                                    <div class="widget-subheading">
+                                        Anak Baik
+                                    </div>
+                                </div>
+                                <div class="widget-content-right header-user-info ml-3">
+                                    <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+                                        <i class="fa text-white fa-calendar pr-1 pl-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>        </div>
+            </div>
+        </div>        
+                <div class="app-main">
+                <div class="app-sidebar sidebar-shadow bg-focus sidebar-text-light">
+                    <div class="app-header__logo">
+                        <div class="logo-src"></div>
+                        <div class="header__pane ml-auto">
+                            <div>
+                                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                                    <span class="hamburger-box">
+                                        <span class="hamburger-inner"></span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="app-header__mobile-menu">
+                        <div>
+                            <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="app-header__menu">
+                        <span>
+                            <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                                <span class="btn-icon-wrapper">
+                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
+                                </span>
+                            </button>
+                        </span>
+                    </div>    <div class="scrollbar-sidebar">
+                        <div class="app-sidebar__inner">
+                            <ul class="vertical-nav-menu">
+                                <li class="app-sidebar__heading">Menu</li>
+                                <li>
+                                   {% url 'index2' as home_url %}
+                                   <a href="{% url 'index2' %}" {% if request.get_full_path == home_url %}class="mm-active"{% endif %}>
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li >
+                                   {% url 'data' as data_url %}
+                                    <a href="{% url 'data' %}" {% if request.get_full_path == data_url %}class="mm-active"{% endif %}>
+
+                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        Data Siswa
+                                    </a>
+                                </li>
+                                <li>
+                                  {% url 'index' as visual_url %}
+                                    <a href="{% url 'index' %}" {% if request.get_full_path == visual_url %}class="mm-active"{% endif %}>
+                                        <i class="metismenu-icon pe-7s-graph2">
+                                        </i>Visualisasi
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>    
+                <div class="app-main__outer">
+                  {% block content %}
+
+                  {% endblock %}
+                  </div>
+        </div>
+    </div>
+
+
+
+
+
+<script src="/media/ext/jquery.min.js"></script>
+<script src="/media/ext/chart.min.js"></script>
+<script src="/media/ext/popper.min.js"></script>
+<script src="/media/ext/bootstrap.min.js"></script>
+<script src="/media/ext/jquery.loading.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+<script type="text/javascript" src="/media/assets/scripts/main.js"></script>
+
+{% block extrascripts %}
+    
+
+    
+{% endblock extrascripts %}
+
+</body>
+</html>

@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+        {% block content %}
+        <div class="app-main__inner">
+          <div class="app-page-title">
+              <div class="page-title-wrapper">
+                  <div class="page-title-heading">
+                      <div class="page-title-icon">
+                          <i class="pe-7s-graph2 icon-gradient bg-mean-fruit">
+                          </i>
+                      </div>
+                      <div>Data Visual
+                          <div class="page-title-subheading">Visualisasi Clustering K-Medoids
+                          </div>
+                      </div>
+                  </div>    </div>
+          </div>            
+          <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-12">
+                  <div class="form-group col-md-12">
+                          <label for="school">Pilih Sekolah : </label>
+                          <select id="school" class="form-control">
+                            <option selected disabled>Pilih Sekolah</option>
+                            <!-- <option value="all">Semua</option> -->
+                            <option value="0">SMPN 01 Kendari</option>
+                            <option value="1">SMPN 02 Kendari</option>
+                            <option value="2">SMPN 03 Kendari</option>
+                            <option value="3">SMPN 04 Kendari</option>
+                            <option value="4">SMPN 05 Kendari</option>
+                            <option value="5">SMPN 06 Kendari</option>
+                            <option value="6">SMPN 07 Kendari</option>
+                            <option value="7">SMPN 08 Kendari</option>
+                            <option value="8">SMPN 09 Kendari</option>
+                            <option value="9">SMPN 10 Kendari</option>
+                            <option value="10">SMPN 11 Kendari</option>
+                            <option value="11">SMPN 12 Kendari</option>
+                            <option value="12">SMPN 13 Kendari</option>
+                            <option value="13">SMPN 14 Kendari</option>
+                            <option value="14">SMPN 15 Kendari</option>
+                            <option value="15">SMPN 16 Kendari</option>
+                            <option value="16">SMPN 17 Kendari</option>
+                            <option value="17">SMPN 18 Kendari</option>
+                            <option value="18">SMPN 19 Kendari</option>
+                            <option value="19">SMPN 20 Kendari</option>
+                            <option value="20">SMPN 21 Kendari</option>
+                            <option value="21">SMPN 22 Kendari</option>
+                            <option value="22">SMPN 23 Kendari</option>
+                          </select>
+                    </div>
+                <div id="map" style="width: 100%; height: 500px; margin-bottom: 25px !important;"></div>
+              </div>
+              </div>
+
+
+              <div class="col-md-12">
+                Jumlah Clustering Data Persekolah
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <h5 class="card-title">Vertical Bars</h5>
+                        <canvas id="canvass"></canvas>
+                    </div>
+                </div>
+              </div>
+              
+          </div>
+          
+          
+        <div style="margin-bottom: 15px !important;"></div>
+          
+
+          {% endblock %}
+       
+
+
+      
+{% block extrascripts %}
+<script>
+    $(document).ready(async function(){
+         var map;
+          map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: -3.9959291, lng: 122.5086357},
+            zoom: 12
+          });
+          sekolahMap();
+
+      $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+
+      var colors = [];
+        for (var i = 1; i <= 23; i++) {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var j = 0; j < 6; j++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            colors.push(color)
+        }
+
+      // {#var data = #}
+        var marker = [];
+        var check = false;
+        function setMapOnAll(x){
+          for (let i = 0; i < this.marker.length; i++) {
+            marker[i].setMap(x);
+          }
+        }
+
+        function sekolahMap(){
+          $.ajax({
+                 url : "http://127.0.0.1:8000/getDataCluster/sekolah/",
+                 dataType: "json",
+                 success : function (data) {
+                     this.marker = data;
+                    data.forEach((d) => {
+                        // console.log(d);
+                        let zmarker = new google.maps.Marker({
+                            position: new google.maps.LatLng(d.lintang, d.bujur),
+                            map: map
+                        });
+                        var infowindow = new google.maps.InfoWindow({
+                            content: "<b>"+d.nama+"</b><br>",
+                          });
+                        zmarker.addListener("click", () => {
+                            infowindow.open(map, zmarker);
+                          });
+                    });
+                 }
+            });
+        }
+
+
+        $('#school').change(async () => {
+            console.log(await "Start Clustering...");
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -3.9959291, lng: 122.5086357},
+                zoom: 12
+              });
+            if(!check){
+                check=true;
+                sekolahMap();
+            }else {
+              check=false; 
+              // setMapOnAll(null)
+              sekolahMap();
+            };
+
+            let selectCluster = $('#school').val();
+            let url;
+            if(selectCluster=='all') url = "http://127.0.0.1:8000/getDataCluster/cluster"
+            else url = "http://127.0.0.1:8000/getDataCluster/cluster_siswa/?cluster="+selectCluster
+            console.log(url);
+            $.ajax({
+                 url : url,
+                 dataType: "json",
+                 success : function (data) {
+                     console.log("Process clustering...");
+                     this.marker = data;
+                    data.forEach((d) => {
+                        // console.log(d);
+                        let zmarker = new google.maps.Marker({
+                            position: new google.maps.LatLng(d.Siswa.lintang, d.Siswa.bujur),
+                            map: map,
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                fillColor: colors[d.cluster],
+                                fillOpacity: 0.9,
+                                strokeColor: '#000000',
+                                strokeOpacity: 1,
+                                strokeWeight: 1,
+                                scale: 5
+                            }
+                        });
+                        var infowindow = new google.maps.InfoWindow({
+                            content: "<b>"+d.Siswa.nama+"</b><br>"+d.Siswa.sekolah,
+                          });
+                        zmarker.addListener("click", () => {
+                            infowindow.open(map, zmarker);
+                          });
+                    });
+                    console.log("End Clustering...");
+                 }
+            });
+        });
+
+        $.ajax({
+          url : "http://127.0.0.1:8000/getDataCluster/grup_cluster/",
+          dataType: "json",
+          success : function (data) {
+            console.log(data)
+
+            let labels = data.map(d => {
+              return `SMPN ${d['cluster']+1} Kendari`;
+            })
+
+            let datax = data.map(d => {
+              return d['total'];
+            })
+
+
+            new Chart(document.getElementById("canvass"),{
+            "type":"bar","data":{
+              "labels":labels,
+              "datasets":[
+                {
+                  "label":"Clustering SMPN Se-Kota Kendari",
+                  "data":datax,
+                  "fill":false,
+                  "backgroundColor":colors,
+                  "borderColor":colors,
+                  "borderWidth":1
+                }
+              ]
+            },
+            "options":{
+              "scales":{
+                "yAxes":[
+                  {
+                    "ticks":{
+                      "beginAtZero":true
+                    }
+                  }
+                ]
+              }
+            }
+          });
+          }
+        });
+
+
+        
+
+
+    });
+</script>
+{% endblock extrascripts %}
